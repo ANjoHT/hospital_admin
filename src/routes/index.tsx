@@ -1,7 +1,7 @@
 // src/routes/index.tsx
 import React, { lazy, Suspense, FC } from "react";
 import { useRoutes } from "react-router-dom";
-import { HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, ShopOutlined } from "@ant-design/icons";
 import type { XRoutes } from "./types";
 
 import {
@@ -18,6 +18,7 @@ const NotFound = lazy(() => import("@pages/404"));
 const HospitalSet = lazy(() => import("@/pages/hospital/hospitalSet"))
 const AddOrUpdateHoospitalSet = lazy(() => import("@/pages/hospital/hospitalSet/components/AddOrUpdateHospitalSet"))
 const HospitalList = lazy(() => import("@/pages/hospital/hospitalList"))
+const HospitalShow = lazy(() => import("@/pages/hospital/hospitalList/components/hospitalShow"))
 
 const load = (Comp: FC) => {
   return (
@@ -53,7 +54,7 @@ const routes: XRoutes = [
       },
       {
         path: "/syt/hospital",
-        meta: { icon: <HomeOutlined />, title: "医院管理" },
+        meta: { icon: <ShopOutlined />, title: "医院管理" },
         children: [
           {
             path: "/syt/hospital/hospitalSet",
@@ -70,6 +71,12 @@ const routes: XRoutes = [
             path: '/syt/hospital/hospitalList',
             meta: { title: '医院列表' },
             element: load(HospitalList)
+          },
+          {
+            path: '/syt/hospital/hospitalList/show/:id',
+            meta: { title: '查看医院' },
+            element: load(HospitalShow),
+            hidden: true
           }
         ]
       },
